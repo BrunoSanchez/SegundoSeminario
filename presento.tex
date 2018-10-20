@@ -7,8 +7,8 @@
 \input{config/custom-command}
 
 % Information
-\title{Segundo Seminario}
-\subtitle{algo con machine learning}
+\title{Machine Learning en Astronomía}
+\subtitle{Segundo seminario de Doctorado}
 \author{Bruno S\'anchez \& \\
 Mariano Dom\'{\i}guez}
 %\titlegraphic{\includegraphics[scale=0.8]{./images/vitraux_h90.png}}
@@ -37,28 +37,148 @@ Mariano Dom\'{\i}guez}
 
 \begin{frame}
 \frametitle{Contenidos}
-\tableofcontents%[sectionstyle=show/hide, 
-    %sectionstyle=show/shaded]
+\tableofcontents%[sectionstyle=show/hide, sectionstyle=show/shaded]
 \end{frame}
 
 
 \section{Motivaciones}
 
-\begin{frame}{Las variaciones en el cielo}
+\begin{frame}{Variabilidad el cielo}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{./images/skeleton.jpg}
-        \caption{Diagrama de variabilidad}
+        \includegraphics[width=0.7\textwidth]{./images/imgs_seminario1/diag1.jpeg}
+        \caption{Diagrama de variabilidad (Kasliwal et al 2012)}
         \label{fig:diag_vacio}
     \end{figure}
 \end{frame}
 
-\section{Las diferencias de Im\'agenes}
+\begin{frame}{Variabilidad en el cielo}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.65\textwidth]{./images/imgs_seminario1/taumv.png}
+        \caption{Diagrama de variabilidad (Kasliwal et al 2012)}
+        \label{fig:diag_lleno}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Large Synoptic Survey Telescope}
+    \begin{figure}
+        \includegraphics[width=0.45\textwidth]{./images/yo+LSST.jpg}
+        \includegraphics[width=0.45\textwidth]{./images/imgs_seminario1/LSST+DECam+ZTF.jpg}
+        \caption{LSST construcci\'on y c\'amara \textit{footprint}}
+        \label{fig:camaras}
+    \end{figure}
+\end{frame}
+
+
+\section{Las diferencias de im\'agenes (DIA)}
+\begin{frame}{Pros \& Cons}
+   \begin{exampleblock}{Localizado}
+   Se pueden encontrar eventos dentro de objetos extendidos
+   \end{exampleblock}
+   \pause
+   \begin{exampleblock}{Sensible}
+   Se pueden detectar objetos d\'ebiles
+   \end{exampleblock}
+   \pause
+   \begin{alertblock}{Artefactos de la sustracci\'on}
+   La operaci\'on tiene resultados inestables
+   \end{alertblock}
+   
+\end{frame}
+
+\begin{frame}{Distintos tipos de operaciones DIA}
+    Primeros intentos: \cite{phillips_registering_1995}
+    
+    Hoy existen diferentes t\'ecnicas de sustracci\'on de im\'agenes:
+    \begin{itemize}
+        \item Alard \& Lupton \cite{alard_method_1998}
+        \item Bramich \cite{bramich_new_2008}
+        \item Zackay, Ofek and Gal-Yam \cite{zackay_proper_2016}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Distintos tipos de operaciones DIA}
+    
+\end{frame}
+
 \section{Pipelines de datos}
 \section{Simulaciones de Im\'agenes}
 \section{Datos Reales}
+
 \section{Machine Learning}
 
+\begin{frame}{Algunas definiciones del ML}
+    A. Samuel (1956):
+    \begin{quote}
+        un campo de estudio que le da la habilidad a una computadora de aprender sin ser explicitamente programada
+    \end{quote}
+    T. Mitchel (1998):
+    \begin{quote}
+        Estudio de algoritmos que mejoran la perfomance $P$ en alguna tarea $T$ con la experiencia $E$
+    \end{quote}
+    Donde $P$, $T$ y $E$ tienen una definici\'on muy clara
+\end{frame}
+
+\begin{frame}{Algunas nociones de ML}
+    %Como forma de trabajo se cambia totalmente la mec\'anica:
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/ML_vs_programming.png}
+        %\caption{}
+        \label{fig:ML_vs_conventional}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Tipos de errores}
+\small
+\begin{center}
+\begin{tabular}{|c|c|l|}
+\hline
+- & \multicolumn{2}{c|}{Decisi\'on}\\
+\hline \hline
+Condici\'on Real & Rechazar $H_0$ & \multicolumn{1}{c|}{Mantener $H_0$}\\
+\hline
+$H_0$ Verdadera & Error de Tipo I & \multicolumn{1}{c|}{Acierto}\\
+\hline
+$H_0$ Falsa & Acierto & \multicolumn{1}{c|}{Error de Tipo II}\\
+\hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame} \frametitle{M\'etricas}
+ %Los estad\'{i}sticos que miden el rendimiento de un test de decisi\'on son FDR, TPR, y FPR.
+ \small
+\begin{itemize}
+ \item \textbf{FDR} (o \textit{Tasa de Falsos Descubrimientos}) corresponde a la probabilidad 
+ de cometer un error de Tipo I habiendo obtenido como resultado el rechazo de $H_0$
+ \item \textbf{TPR} (o \textit{Tasa de Positivos Verdaderos}) corresponde a la probabilidad de 
+ rechazar la $H_0$ dado que es falsa, o bien uno menos la probabilidad de cometer un Error de Tipo I
+\item \textbf{FPR} (o \textit{Tasa de Falsos Positivos}) el cual es la probabilidad de cometer un error de Tipo II
+\end{itemize}
+\end{frame}
+
+
+\begin{frame} \frametitle{Figura de M\'erito}
+ \small
+ \begin{columns}[T]
+\begin{column}{0.48\textwidth}
+ Las tasas de FPR y TPR dependen del valor umbral que se aplique a un dado m\'etodo.\\ 
+ Las tasas de FPR y TPR poseen un balance que se caracteriza por la \textit{Respuesta Caracter\'{i}stica del Operador}.\\ 
+ AUC (\textit{\'Area Bajo la Curva})
+ \end{column}
+ \begin{column}{0.55\textwidth}
+ \begin{figure}
+ \centering
+ \includegraphics[width=\textwidth]{./images/imgs_seminario1/ROC.png}
+ % ROC.ps: 504x504 pixel, 72dpi, 17.78x17.78 cm, bb=0 0 504 504
+ \caption{\scriptsize{Curva ROC}}
+ %\label{fig:roc}
+\end{figure}\pause
+\end{column}
+ \end{columns}
+\end{frame}
 
 
 
@@ -85,4 +205,12 @@ Mariano Dom\'{\i}guez}
     {\color{colorblue}\hugetext{\textbf{RUN!}}}
  \end{textblock}
 }
+
+
+\begin{frame}[allowframebreaks]
+        \frametitle{Referencias}
+        \tiny
+        \bibliographystyle{apalike}
+        \bibliography{bibliography.bib}
+\end{frame}
 \end{document}
