@@ -1,19 +1,36 @@
-\documentclass[14pt]{beamer}
+\documentclass[11pt]{beamer}
 
 % Presento style file
-\usepackage{config/presento}
+%\usepackage{config/presento}
 
 % custom command and packages
 \input{config/custom-command}
 
+\usepackage[spanish]{babel}
+\selectlanguage{spanish} 
+\usepackage[utf8]{inputenc}
+\usepackage{default}
+\usetheme{CambridgeUS}
+%\usecolortheme{dolphin}
+\usecolortheme{seahorse}
+\usepackage{graphicx}
+\usepackage{float} % supuestamente sirve para las tablas, con [H] se ponen en donde uno quiere
+\restylefloat{table} % supuestamente sirve para las tablas, con [H] se ponen en donde uno quiere
+
+\usepackage{subfig}    %para hacer figuras multiples
+%\usepackage{hyperref}
+\usepackage{cancel}
+
+
+
 % Information
-\title{Machine Learning en Astronomía}
+\title{Machine Learning en Astronom\'{\i}a}
 \subtitle{Segundo seminario de Doctorado}
 \author{Bruno S\'anchez \& \\
 Mariano Dom\'{\i}guez}
-%\titlegraphic{\includegraphics[scale=0.8]{./images/vitraux_h90.png}}
-\institute{IATE - FaMAFyC\\
-\includegraphics[scale=0.8]{./images/vitraux_h90.png}}
+\titlegraphic{\includegraphics[scale=0.8]{./images/vitraux_h90.png}}
+\institute{IATE - FaMAFyC} %\\
+%\includegraphics[scale=0.8]{./images/vitraux_h90.png}}
 \date{\today}
 
 \begin{document}
@@ -24,16 +41,16 @@ Mariano Dom\'{\i}guez}
 \end{frame}
 
 % sections in the presentation
-\begin{frame}{Resumen}
- \begin{fullpageitemize}
-  \item \largetext{Motivaciones}
-  \item \largetext{Las diferencias de im\'agenes}
-  \item \largetext{Pipelines con Corral}
-  \item \largetext{Simulaciones de im\'agenes}
-  \item \largetext{Datos reales}
-  \item \largetext{Machine Learning}
- \end{fullpageitemize}
-\end{frame}
+% \begin{frame}{Resumen}
+%  \begin{fullpageitemize}
+%   \item \largetext{Motivaciones}
+%   \item \largetext{Las diferencias de im\'agenes}
+%   \item \largetext{Pipelines con Corral}
+%   \item \largetext{Simulaciones de im\'agenes}
+%   \item \largetext{Datos reales}
+%   \item \largetext{Machine Learning}
+%  \end{fullpageitemize}
+% \end{frame}
 
 \begin{frame}
 \frametitle{Contenidos}
@@ -71,8 +88,9 @@ Mariano Dom\'{\i}guez}
 \end{frame}
 
 
-\section{Las diferencias de im\'agenes (DIA)}
-\begin{frame}{Pros \& Cons}
+
+\begin{frame}{Las diferencias de im\'agenes (DIA)}
+Pros \& Cons
    \begin{exampleblock}{Localizado}
    Se pueden encontrar eventos dentro de objetos extendidos
    \end{exampleblock}
@@ -98,39 +116,82 @@ Mariano Dom\'{\i}guez}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Distintos tipos de operaciones DIA}
-    
-\end{frame}
+\begin{frame}{Conex\'on con el ML}
+    A pesar de ser diferentes las t\'ecnicas, 
+    todas poseen defectos:
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.33\textwidth]{images/diff.png}
+        %\includegraphics[width=0.23\textwidth]{images/s_diff.png}
+        \includegraphics[width=0.33\textwidth]{images/diff_ois.png}
+        \includegraphics[width=0.33\textwidth]{images/diff_hot.png}
+        \caption{Izq. Zackay, centro Bramich, der. A\&Lupton.}
+        \label{fig:restas}
+    \end{figure}
+    \end{frame}
 
-\section{Pipelines de datos}
-\section{Simulaciones de Im\'agenes}
-\section{Datos Reales}
+
+
 
 \section{Machine Learning}
 
 \begin{frame}{Algunas definiciones del ML}
     A. Samuel (1956):
     \begin{quote}
-        un campo de estudio que le da la habilidad a una computadora de aprender sin ser explicitamente programada
+        Un campo de estudio que le da la habilidad a una computadora de aprender sin ser explicitamente programada
     \end{quote}
     T. Mitchel (1998):
     \begin{quote}
         Estudio de algoritmos que mejoran la perfomance $P$ en alguna tarea $T$ con la experiencia $E$
     \end{quote}
-    Donde $P$, $T$ y $E$ tienen una definici\'on muy clara
 \end{frame}
 
-\begin{frame}{Algunas nociones de ML}
+\begin{frame}{Un breve esquema}
     %Como forma de trabajo se cambia totalmente la mec\'anica:
     \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth]{images/ML_vs_programming.png}
+        \includegraphics[width=0.6\textwidth]{images/ML_vs_programming.png}
         %\caption{}
         \label{fig:ML_vs_conventional}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Tipos de errores}
+\begin{frame}{Tipos de ML}
+    \begin{itemize}
+        \item Aprendizaje supervisado 
+        \item Aprendizaje \textbf{NO}-supervisado
+        \item Aprendizaje semi-supervisado
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmos de Machine Learning}
+    Un algoritmo se compone de tres elementos:
+    \begin{itemize}%[<+->]
+        \item Representaci\'on\only<2>{: \textit{el tipo de modelo que utilizaremos para predecir}}
+        \item Evaluaci\'on\only<3>{: \textit{la funci\'on que maximizaremos para que nuestro modelo pueda aprender}}
+        \item Optimizaci\'on\only<4>{: \textit{la estrategia de b\'usqueda de los par\'ametros que maximizan la funci\'on de evaluaci\'on}}
+    \end{itemize}
+
+\includegraphics[width=0.9\textwidth]{images/representation+evaluation+optimization.png}
+
+\end{frame}
+
+\begin{frame}{Ejemplos de representacion}
+\begin{itemize}[<+->]
+    \item Regresi\'on lineal: simplemente el ajuste de una recta a nuestros datos $$y_i = a x_i + b$$
+    \item Naive Bayes: utiliza el teorema de bayes para estimar probabilidades
+    $$P(c=c_i|\vec{f}) = \frac{P(\vec{f}|c=c_i)P(c=c_i)}{P(\vec{f})}$$
+    \item \'Arboles de decisi\'on: una estructura de dendograma
+    \begin{center}
+    \includegraphics[width=0.45\textwidth]{images/cluster_obs_dendrogram_with_final_partition_glove_testers.png}    
+    \end{center}
+\end{itemize}    
+\end{frame}
+
+
+
+\begin{frame}{Evaluaci\'on: Tipos de errores}
+Los errores en ML se extraen de la llamada \textbf{Matriz de Confusi\'on}
 \small
 \begin{center}
 \begin{tabular}{|c|c|l|}
@@ -182,29 +243,29 @@ $H_0$ Falsa & Acierto & \multicolumn{1}{c|}{Error de Tipo II}\\
 
 
 
-\begin{frame}{Open Source Fonts}
- \begin{fullpageitemize}
-  \item {\montserratfont This is Montserrat}
-  \item {\notosansfont This is Noto Sans}
-  \item {\latolightfont This is Lato (light)}
-  \item {\inconsolatafont This is inconsolata}
-  \item \textsc{This is Alegreya Sans small caps}
- \end{fullpageitemize}
-\end{frame}
+% \begin{frame}{Open Source Fonts}
+%  \begin{fullpageitemize}
+%   \item {\montserratfont This is Montserrat}
+%   \item {\notosansfont This is Noto Sans}
+%   \item {\latolightfont This is Lato (light)}
+%   \item {\inconsolatafont This is inconsolata}
+%   \item \textsc{This is Alegreya Sans small caps}
+%  \end{fullpageitemize}
+% \end{frame}
 
-\begin{frame}{Color Palette}
- \begin{center}
-  \crule[colordgray] \crule[colorhgray] \crule[colorblue] \crule[colorgreen] \crule[colororange]
- \end{center}
-\end{frame}
+% \begin{frame}{Color Palette}
+%  \begin{center}
+%   \crule[colordgray] \crule[colorhgray] \crule[colorblue] \crule[colorgreen] \crule[colororange]
+%  \end{center}
+% \end{frame}
 
-\framecard[colorgreen]{{\color{white}\hugetext{BIG BOLD TEXT}}}
+% \framecard[colorgreen]{{\color{white}\hugetext{BIG BOLD TEXT}}}
 
-\framepic[0.8]{images/skeleton}{
- \begin{textblock}{7}(7,2.5)
-    {\color{colorblue}\hugetext{\textbf{RUN!}}}
- \end{textblock}
-}
+% \framepic[0.8]{images/skeleton}{
+%  \begin{textblock}{7}(7,2.5)
+%     {\color{colorblue}\hugetext{\textbf{RUN!}}}
+%  \end{textblock}
+% }
 
 
 \begin{frame}[allowframebreaks]
