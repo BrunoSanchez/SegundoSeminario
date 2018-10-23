@@ -232,7 +232,7 @@ Sky Survey \footcite{garofalo2016astrophysics}  & Volumen & Velocidad       \\ \
 Hay distintos tipos de Machine Learning:
 \begin{columns}
 \begin{column}{0.3\textwidth}
-    \begin{itemize}[<+->]
+    \begin{itemize}
         \item Aprendizaje supervisado
         \item Aprendizaje \textbf{NO}-supervisado
         \item Reinforcement learning (basado en recompensas)
@@ -305,6 +305,19 @@ Hay distintos tipos de Machine Learning:
    \end{itemize}
 \end{frame}
 %-------------------------------------------------------------------------------
+\begin{frame}{\textit{Logistig Regression} y \textit{Naive Bayes}}
+    \begin{exampleblock}{Naive Bayes}
+    Utiliza el teorema de bayes para estimar probabilidades de pertenencia a las clases objetivo
+    $$P(c=c_i|\vec{f}) = \frac{P(\vec{f}|c=c_i)P(c=c_i)}{P(\vec{f})}$$
+    \end{exampleblock}
+    
+    \begin{exampleblock}{Naive Bayes}
+    Utiliza el teorema de bayes para estimar probabilidades de pertenencia a las clases objetivo
+    $$P(c=c_i|\vec{f}) = \frac{P(\vec{f}|c=c_i)P(c=c_i)}{P(\vec{f})}$$
+    \end{exampleblock}
+    
+\end{frame}
+%-------------------------------------------------------------------------------
 \begin{frame}{Ejemplos de representaci\'oon}
   Uno de los m\'as simples: \textit{K-Nearest Neighbors}
   \begin{figure}
@@ -349,23 +362,24 @@ Esto es reemplazar el producto escalar por un producto diferente por ejemplo:
 \end{itemize}
 \begin{figure}
     \centering
-    \includegraphics[width=0.3\textwidth]{images/Kernel_MachineSVM.png}
+    \includegraphics[width=0.6\textwidth]{images/Kernel_MachineSVM.png}
 \end{figure}
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{\'Arboles de Decisi\'on}
     \begin{columns}
     \begin{column}{0.5\textwidth}
-    Estructura de \textit{dendograma}.
-    Representaci\'on basada en reglas.
-    
-    Cada divisi\'on se determina maximizando el orden en el conjunto de datos.
-    Metricas usadas para esto pueden ser \textit{Information Gain}, o impuridad de Gini.
+    \begin{itemize}
+        \item Representaci\'on basada en reglas.
+        \item Estructura de \textit{dendograma}.
+        \item Cada divisi\'on se determina maximizando el orden en el conjunto de datos.
+        \item Hay diversas m\'etricas para el desorden \textit{Information Gain}, o impuridad de Gini.
+    \end{itemize}
     \end{column}
     
     \begin{column}{0.5\textwidth}
     \begin{center}
-    \includegraphics[width=0.45\textwidth]{images/CART_tree_titanic_survivors.png}
+    \includegraphics[width=0.98\textwidth]{images/CART_tree_titanic_survivors.png}
     \end{center}
     \end{column}
     
@@ -374,11 +388,6 @@ Esto es reemplazar el producto escalar por un producto diferente por ejemplo:
 %-------------------------------------------------------------------------------
 \begin{frame}{Random Forest}
     
-\end{frame}
-%-------------------------------------------------------------------------------
-\begin{frame}{Naive Bayes}
-    Naive Bayes: utiliza el teorema de bayes para estimar probabilidades
-    $$P(c=c_i|\vec{f}) = \frac{P(\vec{f}|c=c_i)P(c=c_i)}{P(\vec{f})}$$
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{Perceptron}
