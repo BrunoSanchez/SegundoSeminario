@@ -235,7 +235,7 @@ Hay distintos tipos de Machine Learning:
     \begin{itemize}[<+->]
         \item Aprendizaje supervisado
         \item Aprendizaje \textbf{NO}-supervisado
-        \item Reinforcement learning
+        \item Reinforcement learning (basado en recompensas)
         %\item Aprendizaje semi-supervisado
     \end{itemize}
 \end{column}
@@ -301,19 +301,22 @@ Hay distintos tipos de Machine Learning:
     \begin{itemize}
         \item La representaci\'on: $$y_i = a x_i + b$$
         \item La evaluaci\'on: $$\chi^2 = \sum_i(y_i - a x_i -b)^2$$
-        \item La optimizaci\'on: $$\frac{\partial \chi^2}{\partial a} = 0$$
-        por ejemplo mediante m\'etodo de 
-   on para encontrar ra\'ices. \end{itNewtemize}
+        \item La optimizaci\'on: $$\frac{\partial \chi^2}{\partial a,b} = 0$$
+   \end{itemize}
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{Ejemplos de representaci\'oon}
   Uno de los m\'as simples: \textit{K-Nearest Neighbors}
+  \begin{figure}
+  \centering
   \includegraphics[width=0.7\textwidth]{images/knearest_example.png}
+  \label{fig:my_label}
+  \end{figure}
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{\textit{Support Vector Machines}}
 \begin{columns}[T]
-    \begin{column}{0.55\textwidth}
+    \begin{column}{0.40\textwidth}
     \begin{figure}
         \centering
         \includegraphics[width=0.9\textwidth]{images/SVM_margin.png}
@@ -321,28 +324,48 @@ Hay distintos tipos de Machine Learning:
     \end{figure}
     \end{column}
     
-\begin{column}{0.45\textwidth}
-    Datos: $\{ \vec{x}_i,y_i\}$
-    Clase objetivo: $y_i \in \{+1, -1\}$
-    Ecuaci\'on del hiperplano
+\begin{column}{0.6\textwidth}
+\textit{Hard Margin Linear SVM}
+\begin{itemize}
+    \item Datos: $\{ \vec{x}_i,y_i\}$
+    \item Clase objetivo: $y_i \in \{+1, -1\}$
+    \item Ecuaci\'on del hiperplano
     $\vec{\omega} \cdot \vec{x} - b = 0$
+    \item Restricciones: $y_i \vec{\omega} \cdot \vec{x} - b \geq 1$
+    \item Se intenta minimizar $\|\omega\|$
+    \item Se clasifica con la regla: $$sgn(\vec{\omega} \cdot \vec{x} - b)$$
+\end{itemize}
 \end{column}
 \end{columns}    
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{Support Vector Machines}
-    
+Para el caso no lineal se puede utilizar \textit{kernel tricks}.
+
+Esto es reemplazar el producto escalar por un producto diferente por ejemplo:
+\begin{itemize}
+    \item $K(\vec{x}, \vec{y}) = (\vec{x} \cdot \vec{y})^d$
+    \item $K(\vec{x}, \vec{y}) = exp(-\gamma \|\vec{x} - \vec{y}\|^2)$, $\gamma>0$
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/Kernel_MachineSVM.png}
+\end{figure}
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{\'Arboles de Decisi\'on}
     \begin{columns}
     \begin{column}{0.5\textwidth}
-    Estructura de \textit{dendograma}
+    Estructura de \textit{dendograma}.
+    Representaci\'on basada en reglas.
+    
+    Cada divisi\'on se determina maximizando el orden en el conjunto de datos.
+    Metricas usadas para esto pueden ser \textit{Information Gain}, o impuridad de Gini.
     \end{column}
     
     \begin{column}{0.5\textwidth}
     \begin{center}
-    \includegraphics[width=0.45\textwidth]{images/cluster_obs_dendrogram_with_final_partition_glove_testers.png}    
+    \includegraphics[width=0.45\textwidth]{images/CART_tree_titanic_survivors.png}
     \end{center}
     \end{column}
     
