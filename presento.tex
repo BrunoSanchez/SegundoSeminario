@@ -21,17 +21,19 @@
 \DeclareMathOperator*{\argmax}{arg\,max} % Jan Hlavacek
 \DeclareMathOperator*{\argmin}{arg\,min} % Jan Hlavacek
 \usepackage{subfig}    %para hacer figuras multiples
-%\usepackage{hyperref}
-\usepackage{cancel}
+% \usepackage{hyperref}
 
+% \usepackage{cancel}
+% \usepackage{animate}
+% \usepackage{listings}
 
 
 % Information
 \title{Machine Learning en Astronom\'{\i}a}
 \subtitle{Segundo seminario de Doctorado}
-\author{Bruno S\'anchez \& \\
+\author{Bruno S\'anchez \& 
 Mariano Dom\'{\i}guez}
-\titlegraphic{\includegraphics[scale=0.8]{./images/vitraux_h90.png}}
+\titlegraphic{\includegraphics[scale=0.7]{./images/vitraux_h90.png}}
 \institute{IATE - FaMAFyC} %\\
 %\includegraphics[scale=0.8]{./images/vitraux_h90.png}}
 \date{\today}
@@ -66,7 +68,7 @@ Mariano Dom\'{\i}guez}
 \begin{frame}{Variabilidad el cielo}
     \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth]{./images/imgs_seminario1/diag1.jpeg}
+        \includegraphics[width=0.65\textwidth]{./images/imgs_seminario1/diag1.jpeg}
         \caption{Diagrama de variabilidad (Kasliwal et al 2012)}
         \label{fig:diag_vacio}
     \end{figure}
@@ -113,9 +115,9 @@ Pros \& Cons
     
     Hoy existen diferentes t\'ecnicas de sustracci\'on de im\'agenes:
     \begin{itemize}
-        \item Alard \& Lupton \cite{alard_method_1998}
-        \item Bramich \cite{bramich_new_2008}
-        \item Zackay, Ofek and Gal-Yam \cite{zackay_proper_2016}
+        \item Alard \& Lupton \cite{alard_method_1998} (PSF Gaussiana)
+        \item Bramich \cite{bramich_new_2008} (PSF con $\delta(x)$
+        \item Zackay, Ofek and Gal-Yam \cite{zackay_proper_2016} (pruebas por hip\'otesis)
     \end{itemize}
 \end{frame}
 
@@ -137,25 +139,24 @@ Pros \& Cons
     \end{frame}
 
 %-----------------------------------------------------------------------------
-\begin{frame}[fragile]{Astronom\'{\i}a $=>$ Big Data}
-\small
-\begin{table}[]
-\begin{tabular}{ccc}
-Sky Survey \footcite{garofalo2016astrophysics}  & Volumen & Velocidad       \\ \hline
-% \begin{tabular}[c]{@{}c@{}}SDSS \rule{0pt}{3ex}\\ \textit{Sloan Digital Sky Survey}\end{tabular}                                              & 50 TB  & 200 GB per day \\
-% GAIA \rule{0pt}{3ex} & 100 TB & 40 GB per day  \\
-% \begin{tabular}[c]{@{}c@{}}Pan-STARRS \rule{0pt}{3ex}\\ \textit{Panoramic Survey Telescope}\\ \textit{and Rapid Response System}\end{tabular} & 5 PB   & 5 TB per day   \\
-% \begin{tabular}[c]{@{}c@{}}LSST \rule{0pt}{3ex}\\ \textit{Large Synoptic Survey Telescope}\end{tabular}                              & 60 PB  & 10 TB per day  \\
-% \begin{tabular}[c]{@{}c@{}}SKA \rule{0pt}{3ex}\\ \textit{Square Kilometer Array}\end{tabular}                                        & 3 ZB   & 150 TB per day
-\end{tabular}
-\end{table}
-\normalsize
+\begin{frame}{Astronom\'{\i}a y \textit{Big Data}}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/tab_big_data.png}
+\end{center}
 \end{frame}
 
 %-------------------------------------------------------------------------------
-\begin{frame}[fragile]{Aplicaciones en Astronom\'{\i}a}
+\begin{frame}{Aplicaciones en Astronom\'{\i}a}
+	\begin{columns}
+	\begin{column}{0.3\textwidth}
+	\begin{figure}
+	    \centering
+	    \includegraphics[width=0.95\textwidth]{images/citas_ml_astro.png}
+	\end{figure}
+	\end{column}
+	\begin{column}{0.7\textwidth}
 	\vbox to .9\vsize{
-	\small 
+	\tiny 
 	\begin{itemize}
 	    \item Determinaci\'on de \textit{Redshift} Fotom\'etricos (1706.02467 y 1806.06607)
 	    \item Clasificaci\'on morfol\'ogica de galaxias (1809.08377)
@@ -163,7 +164,7 @@ Sky Survey \footcite{garofalo2016astrophysics}  & Volumen & Velocidad       \\ \
         \item Clasificaci\'on de curvas de luz (1709.06257)
         \item Modelado de PSF (\textit{Fast Point Spread Function}) (1801.07615)
         \item Detecci\'on de Supernovas (1808.03626)
-        \item Medici\'on de Lentes Gravitacionales D\'ebiles y fuertes (1807.02120, 1703.02642 y 1808. 00011)
+        \item Medici\'on de Lentes Gravitacionales (1807.02120, 1703.02642 y 1808. 00011)
         \item Simulaci\'on de cat\'alogos (1709.09665)
         \item Detecci\'on de \textit{Cosmological Diffuse Radio Sources} (1809.03315)
         \item Cosmolog\'{\i}a para estructuras de gran escala (1808.04728)
@@ -172,17 +173,19 @@ Sky Survey \footcite{garofalo2016astrophysics}  & Volumen & Velocidad       \\ \
 	\end{itemize}
 	\normalsize
 	}
+	\end{column}
+	
+\end{columns}
 \end{frame}	
 %-------------------------------------------------------------------------------
 \section{Machine Learning}
 \subsection{Introducci\'on}
 \begin{frame}{Algunas definiciones del ML}
-
-
     A. Samuel (1956):
     \begin{quote}
         Un campo de estudio que le da la habilidad a una computadora de aprender sin ser explicitamente programada
     \end{quote}
+    \pause
     T. Mitchel (1998):
     \begin{quote}
         Estudio de algoritmos que mejoran la perfomance $P$ en alguna tarea $T$ con la experiencia $E$
@@ -258,6 +261,7 @@ Hay distintos tipos de Machine Learning:
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{Formalizando}
+Elementos comunes necesarios:
 \begin{itemize}
     \item Un conjunto de N datos de entrada llamados instancias $\{\vec{f}_i\}$ (\'o $\{\vec{x}_i\}$).
     \begin{itemize}
@@ -311,9 +315,15 @@ Hay distintos tipos de Machine Learning:
     $$P(c=c_i|\vec{f}) = \frac{P(\vec{f}|c=c_i)P(c=c_i)}{P(\vec{f})}$$
     \end{exampleblock}
     
-    \begin{exampleblock}{Naive Bayes}
-    Utiliza el teorema de bayes para estimar probabilidades de pertenencia a las clases objetivo
-    $$P(c=c_i|\vec{f}) = \frac{P(\vec{f}|c=c_i)P(c=c_i)}{P(\vec{f})}$$
+    \begin{exampleblock}{Logistic Regression}
+    Este algoritmo asume que las probabilidades de pertenecer a una dada clase
+    puede ajustada linealmente luego de una transformaci\'on:
+    \begin{displaymath}
+    logi(p_i) = \ln(\frac{p_i}{1-p_i}) = \alpha + \beta \times \vec{f}_i
+    \end{displaymath}
+    ($\frac{p_i}{1-p_i}$ es el denominado \textit{odds ratio})
+%where $logi$ is the \textit{logistic function}, $p_i$ the probability of
+%belonging to a given class, and again $\vec{f}$ is the features of each data point.
     \end{exampleblock}
     
 \end{frame}
@@ -387,7 +397,7 @@ Esto es reemplazar el producto escalar por un producto diferente por ejemplo:
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{Random Forest}
-    
+
 \end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}{Perceptron}
